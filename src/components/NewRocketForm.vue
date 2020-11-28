@@ -5,12 +5,13 @@
       type="button"
       class="btn btn-danger"
     >
-      Show Form
+      Add rocket
     </button>
-    <form v-if="showForm">
+    <form v-if="showForm" @submit.prevent="onAddRocket">
       <div class="form-group">
         <label for="Name">Name</label>
         <input
+          v-model="rocket.name"
           type="text"
           class="form-control"
           name="name"
@@ -18,19 +19,10 @@
           value=""
         />
       </div>
-      <!-- <div class="form-group">
-        <label for="country">Country</label>
-        <input
-          type="text"
-          class="form-control"
-          name="country"
-          id="country"
-          value=""
-        />
-      </div> -->
       <div class="form-group">
         <label for="discription">Description</label>
         <input
+          v-model="rocket.description"
           type="text"
           class="form-control"
           name="description"
@@ -41,6 +33,7 @@
       <div class="form-group">
         <label for="image">Image</label>
         <input
+          v-model="rocket.image"
           type="text"
           class="form-control"
           name="image"
@@ -48,17 +41,39 @@
           value=""
         />
       </div>
-      <button class="btn btn-primary">Add Rocket</button>
+      <button type="submit" class="btn btn-primary">Add Rocket</button>
     </form>
   </section>
 </template>
 
 <script>
+function getEmptyRocket() {
+  return {
+    name: "",
+    description: "",
+    image: "",
+  };
+}
+
 export default {
+  props: ["addRocket"],
   data() {
     return {
       showForm: false,
+      // create a function to store the data from the form so we can call it to clear the form after we submit
+      rocket: getEmptyRocket(),
     };
+  },
+  methods: {
+    //cal this function when we submit the form to be executed
+    onAddRocket() {
+      //puxa a funçao de foi passada do pai e adiciona o rocket form
+      this.addRocket(this.rocket);
+      //this line clear the form when we submit a rocket
+      this.rocket = getEmptyRocket();
+      //hide the form when we submit
+      this.showForm = false;
+    },
   },
 };
 </script>

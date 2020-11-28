@@ -10,12 +10,20 @@
           {{ rocket.description.substring(0, 150) + "...." }}
         </p>
       </div>
+      <button
+        v-on:click="removeRocket(rocket)"
+        type="button"
+        class="btn btn-danger"
+      >
+        Delete Rocket
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["rocket"],
+  //props of the single rocket data that will repeat in the loop cicle component
+  props: ["rocket", "removeRocket"],
 };
 </script>
